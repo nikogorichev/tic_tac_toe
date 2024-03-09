@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from "react";
-import "./App.css";
-import Menu from "components/Menu/Menu";
 import GameProvider from "providers/GameProvider/GameProvider";
+import Main from "components/Main/Main";
 
 function App() {
   return (
     <GameProvider>
-      <Menu />
+      <Main />
     </GameProvider>
   );
 }
