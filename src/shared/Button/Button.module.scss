@@ -21,6 +21,11 @@
   }
 }
 
+.selected {
+  background-color: #2E86AB !important;
+  color: $white !important;
+}
+
 .secondary {
   background-color: $secondary;
   color: $black;
