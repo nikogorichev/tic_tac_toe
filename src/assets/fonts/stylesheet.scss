@@ -1,0 +1,201 @@
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-ExtraBoldItalic.eot");
+  src: url("NotoSansDisplay-ExtraBoldItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("NotoSansDisplay-ExtraBoldItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-ExtraBoldItalic.woff") format("woff"),
+    url("NotoSansDisplay-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-ExtraLight.eot");
+  src: url("NotoSansDisplay-ExtraLight.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-ExtraLight.woff2") format("woff2"),
+    url("NotoSansDisplay-ExtraLight.woff") format("woff"),
+    url("NotoSansDisplay-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-Bold.eot");
+  src: url("NotoSansDisplay-Bold.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-Bold.woff2") format("woff2"),
+    url("NotoSansDisplay-Bold.woff") format("woff"),
+    url("NotoSansDisplay-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-LightItalic.eot");
+  src: url("NotoSansDisplay-LightItalic.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-LightItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-LightItalic.woff") format("woff"),
+    url("NotoSansDisplay-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-Italic.eot");
+  src: url("NotoSansDisplay-Italic.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-Italic.woff2") format("woff2"),
+    url("NotoSansDisplay-Italic.woff") format("woff"),
+    url("NotoSansDisplay-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-BoldItalic.eot");
+  src: url("NotoSansDisplay-BoldItalic.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-BoldItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-BoldItalic.woff") format("woff"),
+    url("NotoSansDisplay-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-Light.eot");
+  src: url("NotoSansDisplay-Light.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-Light.woff2") format("woff2"),
+    url("NotoSansDisplay-Light.woff") format("woff"),
+    url("NotoSansDisplay-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-BlackItalic.eot");
+  src: url("NotoSansDisplay-BlackItalic.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-BlackItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-BlackItalic.woff") format("woff"),
+    url("NotoSansDisplay-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-Black.eot");
+  src: url("NotoSansDisplay-Black.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-Black.woff2") format("woff2"),
+    url("NotoSansDisplay-Black.woff") format("woff"),
+    url("NotoSansDisplay-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-ExtraLightItalic.eot");
+  src: url("NotoSansDisplay-ExtraLightItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("NotoSansDisplay-ExtraLightItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-ExtraLightItalic.woff") format("woff"),
+    url("NotoSansDisplay-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-ExtraBold.eot");
+  src: url("NotoSansDisplay-ExtraBold.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-ExtraBold.woff2") format("woff2"),
+    url("NotoSansDisplay-ExtraBold.woff") format("woff"),
+    url("NotoSansDisplay-ExtraBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-SemiBoldItalic.eot");
+  src: url("NotoSansDisplay-SemiBoldItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("NotoSansDisplay-SemiBoldItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-SemiBoldItalic.woff") format("woff"),
+    url("NotoSansDisplay-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-Regular.eot");
+  src: url("NotoSansDisplay-Regular.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-Regular.woff2") format("woff2"),
+    url("NotoSansDisplay-Regular.woff") format("woff"),
+    url("NotoSansDisplay-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-MediumItalic.eot");
+  src: url("NotoSansDisplay-MediumItalic.eot?#iefix")
+      format("embedded-opentype"),
+    url("NotoSansDisplay-MediumItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-MediumItalic.woff") format("woff"),
+    url("NotoSansDisplay-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-ThinItalic.eot");
+  src: url("NotoSansDisplay-ThinItalic.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-ThinItalic.woff2") format("woff2"),
+    url("NotoSansDisplay-ThinItalic.woff") format("woff"),
+    url("NotoSansDisplay-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-Medium.eot");
+  src: url("NotoSansDisplay-Medium.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-Medium.woff2") format("woff2"),
+    url("NotoSansDisplay-Medium.woff") format("woff"),
+    url("NotoSansDisplay-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-SemiBold.eot");
+  src: url("NotoSansDisplay-SemiBold.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-SemiBold.woff2") format("woff2"),
+    url("NotoSansDisplay-SemiBold.woff") format("woff"),
+    url("NotoSansDisplay-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("NotoSansDisplay-Thin.eot");
+  src: url("NotoSansDisplay-Thin.eot?#iefix") format("embedded-opentype"),
+    url("NotoSansDisplay-Thin.woff2") format("woff2"),
+    url("NotoSansDisplay-Thin.woff") format("woff"),
+    url("NotoSansDisplay-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
