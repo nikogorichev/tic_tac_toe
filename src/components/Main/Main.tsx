@@ -1,3 +1,4 @@
+import Board from "components/Board/Board";
 import Menu from "components/Menu/Menu";
 import GameContext from "providers/GameProvider/GameContext";
 import { useContext, useEffect, useState } from "react";
@@ -12,7 +13,7 @@ const Main = () => {
     }
   }, [options]);
 
-  return <>{!isOptionsFilled ? <Menu /> : "GAME"}</>;
+  return !isOptionsFilled ? <Menu /> : <Board />;
 };
 
 export default Main;

@@ -1,19 +1,28 @@
-import { FC, HTMLAttributes } from "react";
-import styles from "./Button.module.scss";
-import { classNames } from "helpers/classNames";
+import Button, { ThemeButton } from "shared/Button/Button";
+import { Mark } from "utils/types/Mark";
+import { Winner } from "utils/types/Winner";
 
-interface CellProps extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+interface CellProps {
+  value: Mark;
+  winner: Winner;
+  setCellValue: () => void;
 }
 
-const Cell: FC<CellProps> = ({ className, children, ...otherProps }) => {
+const Cell = ({ value, winner, setCellValue }: CellProps) => {
   return (
-    <div
-      className={classNames(styles.cell, {}, [className || ""])}
-      {...otherProps}
-    >
-      {children}
-    </div>
+    <>
+      {value ? (
+        <Button theme={ThemeButton.CELL} disabled>
+          {value.toUpperCase()}
+        </Button>
+      ) : (
+        <Button
+          theme={ThemeButton.CELL}
+          onClick={setCellValue}
+          disabled={Boolean(winner)}
+        />
+      )}
+    </>
   );
 };
 

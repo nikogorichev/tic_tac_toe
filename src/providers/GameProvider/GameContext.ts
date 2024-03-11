@@ -1,18 +1,10 @@
 import { createContext } from "react";
-
-export enum Mark {
-  X = "x",
-  O = "0",
-}
-
-export enum Game {
-  CPU = "cpu",
-  PVP = "pvp",
-}
+import { Game } from "utils/types/Game";
+import { Mark } from "utils/types/Mark";
 
 export type Options = {
-  mark: Mark | null;
-  game: Game | null;
+  mark: Mark;
+  game: Game;
 };
 
 type GameContextType = {
