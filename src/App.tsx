@@ -1,7 +1,12 @@
-import "./App.css";
+import GameProvider from "providers/GameProvider/GameProvider";
+import Main from "components/Main/Main";
 
 function App() {
-  return <div>123</div>;
+  return (
+    <GameProvider>
+      <Main />
+    </GameProvider>
+  );
 }
 
 export default App;

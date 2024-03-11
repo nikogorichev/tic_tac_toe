@@ -1,0 +1,53 @@
+@import "~/src/assets/styles/main.scss";
+
+.button {
+  width: 100%;
+  cursor: pointer;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  @include mainText;
+  color: $white;
+  background-color: $primary;
+  &:hover {
+    background-color: $white;
+    color: $black;
+  }
+
+  &:disabled {
+    color: $black;
+    background-color: $grey;
+    cursor: not-allowed;
+  }
+}
+
+.selected {
+  background-color: #2e86ab !important;
+  color: $white !important;
+}
+
+.secondary {
+  background-color: $secondary;
+  color: $black;
+}
+
+.grey {
+  background-color: $grey;
+  color: $black;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: $green;
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+  &:disabled {
+    background-color: $green;
+    cursor: not-allowed;
+    color: $white;
+  }
+}
