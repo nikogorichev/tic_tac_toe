@@ -32,20 +32,61 @@ const calculateWinner = (cellValue: Mark[]): Mark => {
   return null;
 };
 
-// const nextComputerStep = (computerMark: Mark, cellsValue: Mark[]) => {
-//   const playerMark: Mark =  computerMark === "x" ? "o" : "x"
-//   lines.forEach((line) => {
-//     // eslint-disable-next-line no-console
-//     console.log(line)
-//     if (line.)
-//   })
-// }
-
 const Board = () => {
   const { options } = useContext(GameContext);
   const [cells, setCells] = useState<Mark[]>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Mark>("x");
   const [winner, setWinner] = useState<Winner>(null);
+
+  const findLine = (cellsValue: Mark[]) => {
+    return lines.filter((cellIndexes) => {
+      const squareValues = cellIndexes.map((index) => cells[index]);
+      return (
+        JSON.stringify(cellsValue.sort()) ===
+        JSON.stringify(squareValues.sort())
+      );
+    });
+  };
+
+  const nextComputerMove = (computerMark: Mark, cellsValue: Mark[]) => {
+    const playerMark: Mark = computerMark === "x" ? "o" : "x";
+    const winLine = findLine([computerMark, computerMark, null]);
+    const blockLine = findLine([playerMark, playerMark, null]);
+    const defaultLine = findLine([computerMark, null, null]);
+
+    if (winLine.length > 0) {
+      const winIndex = winLine[0].filter(
+        (index) => cellsValue[index] === null
+      )[0];
+      setCellValue(winIndex);
+      return;
+    }
+
+    if (blockLine.length > 0) {
+      const blockIndex = blockLine[0].filter(
+        (index) => cellsValue[index] === null
+      )[0];
+      setCellValue(blockIndex);
+      return;
+    }
+
+    if (defaultLine.length > 0) {
+      const defaultIndex = defaultLine[0].filter(
+        (index) => cellsValue[index] === null
+      )[0];
+      setCellValue(defaultIndex);
+      return;
+    }
+
+    const emptyIndexes = cellsValue
+      .map((cell, index) => (cell === null ? index : null))
+      .filter((val) => val !== null);
+
+    const randomIndex =
+      emptyIndexes[Math.ceil(Math.random() * emptyIndexes.length)];
+
+    randomIndex && setCellValue(randomIndex);
+  };
 
   const setCellValue = (index: number) => {
     setCells((prev) =>
@@ -74,14 +115,15 @@ const Board = () => {
   useEffect(() => {
     if (options.game === "cpu") {
       const computerMark: Mark = options.mark === "x" ? "o" : "x";
-      if (computerMark === currentPlayer) {
-        if (computerMark === "x" && !cells.filter(Boolean).length) {
-          const firstStepIndex = Math.floor(Math.random() * 9);
-          setCellValue(firstStepIndex);
-        }
-        // nextComputerStep(computerMark, cells)
+      if (computerMark === "x" && cells.every((cell) => cell)) {
+        const firstStepIndex = Math.floor(Math.random() * 9);
+        setCellValue(firstStepIndex);
       }
-      
+      if (computerMark === currentPlayer) {
+        setTimeout(() => {
+          !winner && nextComputerMove(computerMark, cells);
+        }, 300);
+      }
     }
   }, [currentPlayer]);
 
