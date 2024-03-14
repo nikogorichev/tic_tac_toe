@@ -1,0 +1,14 @@
+@import "~/src/assets/styles/main.scss";
+
+.wrapper {
+  margin-top: 20px;
+  display: flex;
+  gap: 5px;
+}
+
+.btnContent {
+  & > p {
+    margin: 0 0 5px;
+    font-weight: 500;
+  }
+}

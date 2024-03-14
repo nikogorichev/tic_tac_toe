@@ -37,9 +37,10 @@
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  font-size: 50px;
   background-color: $green;
   &:hover {
     background-color: $green;

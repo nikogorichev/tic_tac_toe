@@ -10,6 +10,8 @@ const Main = () => {
   useEffect(() => {
     if (Object.values(options).every(Boolean)) {
       setIsOptionsFilled(true);
+    } else {
+      setIsOptionsFilled(false);
     }
   }, [options]);
 
