@@ -6,12 +6,20 @@ import { Mark } from "utils/types/Mark";
 import { Winner } from "utils/types/Winner";
 import GameContext from "providers/GameProvider/GameContext";
 import { calculateWinner, nextComputerMove } from "utils/gameLogic";
+import Counter from "components/Counter/Counter";
+
+type counterPvPType = Record<"x" | "o" | "draw", number>;
 
 const Board = () => {
-  const { options, setOptions } = useContext(GameContext);
+  const { options, counter, setOptions, setCounter } = useContext(GameContext);
   const [cells, setCells] = useState<Mark[]>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Mark>("x");
   const [winner, setWinner] = useState<Winner>(null);
+  const [counterPvP, setCounterPvP] = useState<counterPvPType>({
+    x: 0,
+    o: 0,
+    draw: 0,
+  });
 
   const setCellValue = (index: number) => {
     setCells((prev) =>
@@ -28,16 +36,46 @@ const Board = () => {
 
   const backToMenu = () => {
     setOptions({ mark: null, game: null });
+    setCounterPvP({
+      x: 0,
+      o: 0,
+      draw: 0,
+    });
   };
 
   useEffect(() => {
     const winnerPlayer = calculateWinner(cells);
     if (winnerPlayer) {
       setWinner(winnerPlayer);
+      if (options.game === "cpu") {
+        setCounter((prev) => ({
+          ...prev,
+          human: winnerPlayer === options.mark ? prev.human + 1 : prev.human,
+          computer:
+            winnerPlayer !== options.mark ? prev.computer + 1 : prev.computer,
+        }));
+      }
+      if (options.game === "pvp") {
+        setCounterPvP((prev) => ({
+          ...prev,
+          [winnerPlayer]: prev[winnerPlayer] + 1,
+        }));
+      }
     }
 
     if (!winnerPlayer && !cells.filter((cell) => !cell).length) {
       setWinner("draw");
+      if (options.game === "cpu") {
+        setCounter((prev) => {
+          return { ...prev, draw: prev.draw + 1 };
+        });
+      }
+      if (options.game === "pvp") {
+        setCounterPvP((prev) => ({
+          ...prev,
+          draw: prev.draw + 1,
+        }));
+      }
     }
   }, [cells]);
 
@@ -90,6 +128,21 @@ const Board = () => {
           В главное меню
         </Button>
       </div>
+      <Counter
+        counters={
+          options.game === "cpu"
+            ? [
+                { title: "Человек", value: counter.human },
+                { title: "Ничья", value: counter.draw },
+                { title: "Компьютер", value: counter.computer },
+              ]
+            : [
+                { title: "Крестики", value: counterPvP.x },
+                { title: "Ничья", value: counterPvP.draw },
+                { title: "Нолики", value: counterPvP.o },
+              ]
+        }
+      />
     </>
   );
 };
