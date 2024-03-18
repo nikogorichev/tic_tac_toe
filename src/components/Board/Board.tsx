@@ -36,12 +36,10 @@ const Board = () => {
 
   const backToMenu = () => {
     setOptions({ mark: null, game: null });
-    setCounterPvP({
-      x: 0,
-      o: 0,
-      draw: 0,
-    });
   };
+
+  // счетчик на x и o
+  // рандом на то, кто ходит первым х или о
 
   useEffect(() => {
     const winnerPlayer = calculateWinner(cells);
@@ -91,6 +89,8 @@ const Board = () => {
       }
     }
   }, [currentPlayer, winner]);
+
+  // показывать текущего игрока
 
   return (
     <>
