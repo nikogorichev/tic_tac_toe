@@ -5,7 +5,9 @@ import { Mark } from "utils/types/Mark";
 
 export type Options = {
   mark: Mark;
-  game: Game;
+  firstMove: Mark;
+  x: Game;
+  o: Game;
 };
 
 type GameContextType = {
@@ -18,9 +20,11 @@ type GameContextType = {
 export default createContext<GameContextType>({
   options: {
     mark: null,
-    game: null,
+    firstMove: null,
+    x: null,
+    o: null,
   },
-  counter: { computer: 0, human: 0, draw: 0 },
+  counter: { x: 0, o: 0, draw: 0 },
 
   setOptions: (value) => value,
   setCounter: (value) => value,

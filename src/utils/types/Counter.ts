@@ -1,5 +1,5 @@
 export type CounterType = {
-  computer: number;
-  human: number;
+  x: number;
+  o: number;
   draw: number;
 };

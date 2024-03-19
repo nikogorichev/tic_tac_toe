@@ -8,10 +8,15 @@ type CardsProviderProps = {
 };
 
 const GameProvider = ({ children }: CardsProviderProps) => {
-  const [options, setOptions] = useState<Options>({ mark: null, game: null });
+  const [options, setOptions] = useState<Options>({
+    mark: null,
+    firstMove: null,
+    x: null,
+    o: null
+  });
   const [counter, setCounter] = useLocalStorage<CounterType>("counter", {
-    computer: 0,
-    human: 0,
+    x: 0,
+    o: 0,
     draw: 0,
   });
 
