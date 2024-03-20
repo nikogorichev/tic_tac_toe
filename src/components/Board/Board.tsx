@@ -34,7 +34,7 @@ const Board = () => {
   };
 
   const backToMenu = () => {
-    setOptions({ mark: null, firstMove: null, game: null });
+    setOptions({ x: null, o: null, firstMove: null, isGame: false });
   };
 
   useEffect(() => {
@@ -53,16 +53,16 @@ const Board = () => {
     }
   }, [cells]);
 
+  const isComputerMove =
+    currentPlayer && options[currentPlayer] === "cpu" && !winner;
+
   useEffect(() => {
-    if (options.game === "cpu" && !winner) {
-      const computerMark: Mark = options.mark === "x" ? "o" : "x";
-      if (computerMark === options.firstMove && cells.every((cell) => cell)) {
+    if (isComputerMove) {
+      if (cells.every((cell) => cell)) {
         const firstStepIndex = Math.floor(Math.random() * 9);
         setCellValue(firstStepIndex);
       }
-      if (computerMark === currentPlayer) {
-        nextComputerMove(computerMark, cells, setCellValue);
-      }
+      nextComputerMove(currentPlayer, cells, setCellValue);
     }
   }, [currentPlayer, winner]);
 

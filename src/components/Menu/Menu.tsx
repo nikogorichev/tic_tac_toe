@@ -1,15 +1,16 @@
 import Button, { ThemeButton } from "shared/Button/Button";
 import styles from "./Menu.module.scss";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import GameContext from "providers/GameProvider/GameContext";
 import { Game } from "utils/types/Game";
 import { Mark } from "utils/types/Mark";
 
 const Menu = () => {
   const { options, setOptions } = useContext(GameContext);
+  const [playerMark, setPlayerMark] = useState<Mark>(null);
 
-  const handleSetMark = (mark: Mark) => {
-    setOptions({ ...options, mark });
+  const handleSetPlayerMark = (mark: Mark) => {
+    setPlayerMark(mark);
   };
 
   const handleSetFirstMove = (firstMove: Mark) => {
@@ -26,6 +27,19 @@ const Menu = () => {
     return handleSetFirstMove(marks[randomIndex]);
   };
 
+  const handleSetOptions = () => {
+    const resultMarks = Object.assign({}, options);
+    if (options.x === "player" && options.o === "cpu" && playerMark) {
+      resultMarks[playerMark] = "player";
+      resultMarks[playerMark === "x" ? "o" : "x"] = "cpu";
+    }
+    setOptions({ ...resultMarks, isGame: true });
+  };
+
+  const isStartButtonDisabled = !Object.values(options)
+    .filter((value) => typeof value !== "boolean")
+    .every((value) => value);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.selectionMenu}>
@@ -33,15 +47,15 @@ const Menu = () => {
         <div className={styles.buttons}>
           <Button
             theme={ThemeButton.GREY}
-            onClick={() => handleSetMark("x")}
-            selected={options.mark === "x"}
+            onClick={() => handleSetPlayerMark("x")}
+            selected={playerMark === "x"}
           >
             X
           </Button>
           <Button
             theme={ThemeButton.GREY}
-            onClick={() => handleSetMark("o")}
-            selected={options.mark === "o"}
+            onClick={() => handleSetPlayerMark("o")}
+            selected={playerMark === "o"}
           >
             0
           </Button>
@@ -68,8 +82,8 @@ const Menu = () => {
       </div>
 
       <Button
-        onClick={() => handleSetGame("cpu")}
-        selected={options.game === "cpu"}
+        onClick={() => handleSetGame({ x: "player", o: "cpu" })}
+        selected={options.x === "player" && options.o === "cpu"}
       >
         Новая игра против компьютера
       </Button>
@@ -86,6 +100,10 @@ const Menu = () => {
         selected={options.x === "cpu" && options.o === "cpu"}
       >
         Компьютер против компьютера
+      </Button>
+
+      <Button onClick={handleSetOptions} disabled={isStartButtonDisabled}>
+        Начать игру
       </Button>
     </div>
   );

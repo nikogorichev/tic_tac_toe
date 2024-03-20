@@ -4,25 +4,25 @@ import { Game } from "utils/types/Game";
 import { Mark } from "utils/types/Mark";
 
 export type Options = {
-  mark: Mark;
   firstMove: Mark;
   x: Game;
   o: Game;
+  isGame: boolean
 };
 
 type GameContextType = {
   options: Options;
   counter: CounterType;
-  setOptions: (value: Options) => void;
+  setOptions: Dispatch<React.SetStateAction<Options>>;
   setCounter: Dispatch<React.SetStateAction<CounterType>>;
 };
 
 export default createContext<GameContextType>({
   options: {
-    mark: null,
     firstMove: null,
     x: null,
     o: null,
+    isGame: false
   },
   counter: { x: 0, o: 0, draw: 0 },
 
