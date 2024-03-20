@@ -1,1 +1,1 @@
-export type Game = "cpu" | "pvp" | null;
+export type Game = "cpu" | "player" | null;
