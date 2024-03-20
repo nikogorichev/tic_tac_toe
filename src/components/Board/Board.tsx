@@ -62,7 +62,9 @@ const Board = () => {
         const firstStepIndex = Math.floor(Math.random() * 9);
         setCellValue(firstStepIndex);
       }
-      nextComputerMove(currentPlayer, cells, setCellValue);
+      setTimeout(() => {
+        nextComputerMove(currentPlayer, cells, setCellValue);
+      }, 500);
     }
   }, [currentPlayer, winner]);
 
