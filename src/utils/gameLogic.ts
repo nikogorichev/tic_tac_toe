@@ -34,7 +34,6 @@ const findLine = (line: Mark[], cells: Mark[]) => {
 
 // три уровня сложности
 // выбор размера игрового поля
-// cpu vs cpu
 
 export const nextComputerMove = (
   computerMark: Mark,
