@@ -5,10 +5,12 @@ import { Game } from "utils/types/Game";
 import { Mark } from "utils/types/Mark";
 import MarkSelect from "./MarkSelect/MarkSelect";
 import GameSelect from "./GameSelect/GameSelect";
+import LevelSelect from "./LevelSelect/LevelSelect";
+import { LevelType } from "utils/types/Level";
 
 const Menu = () => {
-  const { options, setOptions } = useContext(GameContext);
-  const [playerMark, setPlayerMark] = useState<Mark>(null);
+  const { options, level, setOptions, setLevel } = useContext(GameContext);
+  const [playerMark, setPlayerMark] = useState<Mark>("x");
 
   const handleSetFirstMove = (firstMove: Mark) => {
     setOptions({ ...options, firstMove });
@@ -33,6 +35,10 @@ const Menu = () => {
     setOptions({ ...resultMarks, isGame: true });
   };
 
+  const handleSetLevel = (level: LevelType) => {
+    setLevel(level);
+  };
+
   const isStartButtonDisabled = !Object.values(options)
     .filter((value) => typeof value !== "boolean")
     .every((value) => value);
@@ -41,15 +47,25 @@ const Menu = () => {
     <div className={styles.wrapper}>
       <MarkSelect
         playerMark={playerMark}
+        firstMove={options.firstMove}
         setPlayerMark={setPlayerMark}
         handleRandom={handleRandom}
         setFirstMove={handleSetFirstMove}
       />
 
+      {options.x === "cpu" || options.o === "cpu" ? (
+        <LevelSelect handleSetLevel={handleSetLevel} selectedLevel={level}/>
+      ) : (
+        ""
+      )}
+
       <GameSelect
         handleSetGame={handleSetGame}
         handleSetOptions={handleSetOptions}
         isStartButtonDisabled={isStartButtonDisabled}
+        markX={options.x}
+        markO={options.o}
+
       />
     </div>
   );

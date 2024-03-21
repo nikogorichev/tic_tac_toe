@@ -15,7 +15,8 @@ const winnerDict = {
 };
 
 const Board = () => {
-  const { options, counter, setOptions, setCounter } = useContext(GameContext);
+  const { options, counter, level, setOptions, setCounter } =
+    useContext(GameContext);
   const [cells, setCells] = useState<Mark[]>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Mark>(options.firstMove);
   const [winner, setWinner] = useState<Winner>(null);
@@ -63,7 +64,7 @@ const Board = () => {
         setCellValue(firstStepIndex);
       }
       setTimeout(() => {
-        nextComputerMove(currentPlayer, cells, setCellValue);
+        nextComputerMove(currentPlayer, cells, setCellValue, level);
       }, 500);
     }
   }, [currentPlayer, winner]);

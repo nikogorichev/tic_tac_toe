@@ -1,11 +1,10 @@
 import styles from "./MarkSelect.module.scss";
-import { useContext } from "react";
-import GameContext from "providers/GameProvider/GameContext";
 import Button, { ThemeButton } from "shared/Button/Button";
 import { Mark } from "utils/types/Mark";
 
 type MarkSelectProps = {
   playerMark: Mark;
+  firstMove: Mark;
   setPlayerMark: (value: Mark) => void;
   setFirstMove: (value: Mark) => void;
   handleRandom: () => void;
@@ -13,12 +12,12 @@ type MarkSelectProps = {
 
 const MarkSelect = ({
   playerMark,
+  firstMove,
   setPlayerMark,
   setFirstMove,
   handleRandom,
 }: MarkSelectProps) => {
-  const { options } = useContext(GameContext);
-
+  
   return (
     <div className={styles.selectionMenu}>
       <p>Выберите, чем будете играть</p>
@@ -44,14 +43,14 @@ const MarkSelect = ({
         <Button
           theme={ThemeButton.GREY}
           onClick={() => setFirstMove("x")}
-          selected={options.firstMove === "x"}
+          selected={firstMove === "x"}
         >
           X
         </Button>
         <Button
           theme={ThemeButton.GREY}
           onClick={() => setFirstMove("o")}
-          selected={options.firstMove === "o"}
+          selected={firstMove === "o"}
         >
           0
         </Button>
