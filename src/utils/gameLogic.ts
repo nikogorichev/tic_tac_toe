@@ -1,5 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { getEmptyCells } from "./helpers/getEmptyCells";
+import { switchPlayer } from "./helpers/switchPlayer";
 import { LevelType } from "./types/Level";
 import { Mark } from "./types/Mark";
+
+const multiplierMark = {
+  x: 1,
+  o: -1,
+};
+
+const makeMove = (cell: number, player: Mark, cellsValue: Mark[]) => {
+  if (cellsValue[cell] === null) {
+    cellsValue[cell] = player;
+  }
+  return cellsValue
+  
+}
 
 const lines = [
   [0, 1, 2],
@@ -44,9 +60,7 @@ export const nextComputerMove = (
 ) => {
   switch (level) {
     case "easy": {
-      const emptyIndexes = cellsValue
-        .map((cell, index) => (cell === null ? index : null))
-        .filter((val) => val !== null);
+      const emptyIndexes = getEmptyCells(cellsValue);
 
       const randomIndex =
         emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)];
@@ -93,9 +107,7 @@ export const nextComputerMove = (
         return;
       }
 
-      const emptyIndexes = cellsValue
-        .map((cell, index) => (cell === null ? index : null))
-        .filter((val) => val !== null);
+      const emptyIndexes = getEmptyCells(cellsValue);
 
       const randomIndex =
         emptyIndexes[Math.ceil(Math.random() * emptyIndexes.length)];
@@ -103,5 +115,41 @@ export const nextComputerMove = (
       randomIndex !== null && setValue(randomIndex);
       break;
     }
+
+    case "hard": {
+      const index = minimax(computerMark, cellsValue)?.[1]
+      console.log(2, index)
+      setValue(index as number);
+    }
   }
+};
+
+const minimax = (mark: Mark, cellsValue: Mark[]) => {
+  if (mark) {
+    const multiplier = multiplierMark[mark];
+    console.log(multiplier)
+    let thisScore: number;
+    let maxScore = -1;
+    let bestMove: number | null = null;
+    const copyCellsValue = [...cellsValue]
+    const emptyIndexes = getEmptyCells(cellsValue)
+    const winner = calculateWinner(cellsValue)
+    if (winner) {
+      return
+    }
+    emptyIndexes.forEach((index) => {
+      const newCellsValue = makeMove(index, mark, copyCellsValue)
+      console.log(newCellsValue)
+      thisScore = multiplier * minimax(switchPlayer(mark), newCellsValue)?.[0];
+      if (thisScore >= maxScore) {
+        maxScore = thisScore;
+        bestMove = index;
+      }
+    })
+    // console.log(newCellsValue)
+    return [multiplier * maxScore, bestMove];
+  }
+  
+  
+  
 };

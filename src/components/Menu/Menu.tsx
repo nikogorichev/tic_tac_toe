@@ -54,7 +54,7 @@ const Menu = () => {
       />
 
       {options.x === "cpu" || options.o === "cpu" ? (
-        <LevelSelect handleSetLevel={handleSetLevel} selectedLevel={level}/>
+        <LevelSelect handleSetLevel={handleSetLevel} selectedLevel={level} />
       ) : (
         ""
       )}
@@ -65,7 +65,6 @@ const Menu = () => {
         isStartButtonDisabled={isStartButtonDisabled}
         markX={options.x}
         markO={options.o}
-
       />
     </div>
   );
