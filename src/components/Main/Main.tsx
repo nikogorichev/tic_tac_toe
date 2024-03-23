@@ -1,4 +1,4 @@
-import Board from "components/Board/Board";
+import Board from "components/Board/BoardTest";
 import Menu from "components/Menu/Menu";
 import { useOptionsFilled } from "utils/hooks/useOptionsFilled";
 

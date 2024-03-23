@@ -1,6 +1,6 @@
 import Button, { ThemeButton } from "shared/Button/Button";
 import styles from "./Board.module.scss";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Cell from "shared/Cell/Cell";
 import { Mark } from "utils/types/Mark";
 import { Winner } from "utils/types/Winner";
@@ -20,6 +20,8 @@ const Board = () => {
   const [cells, setCells] = useState<Mark[]>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Mark>(options.firstMove);
   const [winner, setWinner] = useState<Winner>(null);
+
+  console.log(options)
 
   const setCellValue = (index: number) => {
     setCells((prev) =>
@@ -53,6 +55,19 @@ const Board = () => {
       setCounter((prev) => ({ ...prev, draw: prev.draw + 1 }));
     }
   }, [cells]);
+
+  // const move = useCallback(
+  //   (index: number, player: Mark) => {
+  //     if (player !== null) {
+  //       setGrid((grid) => {
+  //         const gridCopy = grid.concat();
+  //         gridCopy[index] = player;
+  //         return gridCopy;
+  //       });
+  //     }
+  //   },
+  //   []
+  // );
 
   const isComputerMove =
     currentPlayer && options[currentPlayer] === "cpu" && !winner;

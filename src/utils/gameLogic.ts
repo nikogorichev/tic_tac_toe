@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import BoardClass from "./Game";
 import { getEmptyCells } from "./helpers/getEmptyCells";
 import { switchPlayer } from "./helpers/switchPlayer";
 import { LevelType } from "./types/Level";
@@ -13,9 +14,8 @@ const makeMove = (cell: number, player: Mark, cellsValue: Mark[]) => {
   if (cellsValue[cell] === null) {
     cellsValue[cell] = player;
   }
-  return cellsValue
-  
-}
+  return cellsValue;
+};
 
 const lines = [
   [0, 1, 2],
@@ -116,40 +116,68 @@ export const nextComputerMove = (
       break;
     }
 
-    case "hard": {
-      const index = minimax(computerMark, cellsValue)?.[1]
-      console.log(2, index)
-      setValue(index as number);
-    }
+    // case "hard": {
+    //   const index = minimax(computerMark, cellsValue)?.[1]
+    //   console.log(2, index)
+    //   setValue(index as number);
+    // }
   }
 };
 
-const minimax = (mark: Mark, cellsValue: Mark[]) => {
-  if (mark) {
-    const multiplier = multiplierMark[mark];
-    console.log(multiplier)
-    let thisScore: number;
+// export const minimax = (cellsValue: Mark[], mark: Mark ) => {
+//   if (mark) {
+//     const multiplier = multiplierMark[mark];
+//     let thisScore: number;
+//     let maxScore = -1;
+//     let bestMove: number | null = null;
+//     const copyCellsValue = [...cellsValue]
+//     const emptyIndexes = getEmptyCells(cellsValue)
+//     const winner = calculateWinner(cellsValue)
+//     if (winner) {
+//       return
+//     }
+//     emptyIndexes.forEach((index) => {
+//       const newCellsValue = makeMove(index, mark, copyCellsValue)
+//       console.log(newCellsValue)
+//       thisScore = multiplier * minimax(newCellsValue, switchPlayer(mark))?.[0];
+//       if (thisScore >= maxScore) {
+//         maxScore = thisScore;
+//         bestMove = index;
+//       }
+//     })
+//     console.log([multiplier * maxScore, bestMove])
+//     return [multiplier * maxScore, bestMove];
+//   }
+
+// };
+
+export const minimax = (
+  board: BoardClass,
+  player: Mark
+): [number, number | null] => {
+  if (player) {
+    const multiplier = multiplierMark[player];
+    let thisScore;
     let maxScore = -1;
-    let bestMove: number | null = null;
-    const copyCellsValue = [...cellsValue]
-    const emptyIndexes = getEmptyCells(cellsValue)
-    const winner = calculateWinner(cellsValue)
-    if (winner) {
-      return
-    }
-    emptyIndexes.forEach((index) => {
-      const newCellsValue = makeMove(index, mark, copyCellsValue)
-      console.log(newCellsValue)
-      thisScore = multiplier * minimax(switchPlayer(mark), newCellsValue)?.[0];
-      if (thisScore >= maxScore) {
-        maxScore = thisScore;
-        bestMove = index;
+    let bestMove = null;
+    const winner = board.getWinner();
+    if (winner !== null) {
+      return [multiplierMark[winner], 0];
+    } else {
+      for (const square of board.getEmptySquares()) {
+        const copy: BoardClass = board.clone();
+        copy.makeMove(square, player);
+        // console.log(copy.grid)
+        thisScore = multiplier * minimax(copy, switchPlayer(player))[0];
+
+        if (thisScore >= maxScore) {
+          maxScore = thisScore;
+          bestMove = square;
+        }
       }
-    })
-    // console.log(newCellsValue)
-    return [multiplier * maxScore, bestMove];
+      // console.log([multiplier * maxScore, bestMove])
+      return [multiplier * maxScore, bestMove];
+    }
   }
-  
-  
-  
+  return [0, 0]
 };
