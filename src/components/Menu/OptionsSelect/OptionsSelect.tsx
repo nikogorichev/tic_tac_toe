@@ -1,24 +1,26 @@
-import styles from "./MarkSelect.module.scss";
-import { useContext } from "react";
-import GameContext from "providers/GameProvider/GameContext";
+import styles from "./OptionsSelect.module.scss";
 import Button, { ThemeButton } from "shared/Button/Button";
 import { Mark } from "utils/types/Mark";
 
-type MarkSelectProps = {
+type OptionsSelectProps = {
   playerMark: Mark;
+  firstMove: Mark;
+  dimension: number
   setPlayerMark: (value: Mark) => void;
   setFirstMove: (value: Mark) => void;
+  setDimension: (value: number) => void;
   handleRandom: () => void;
 };
 
-const MarkSelect = ({
+const OptionsSelect = ({
   playerMark,
+  firstMove,
+  dimension,
   setPlayerMark,
   setFirstMove,
+  setDimension,
   handleRandom,
-}: MarkSelectProps) => {
-  const { options } = useContext(GameContext);
-
+}: OptionsSelectProps) => {
   return (
     <div className={styles.selectionMenu}>
       <p>Выберите, чем будете играть</p>
@@ -39,19 +41,37 @@ const MarkSelect = ({
         </Button>
       </div>
 
+      <p>Выберите размер поля</p>
+      <div className={styles.buttons}>
+        <Button
+          theme={ThemeButton.GREY}
+          onClick={() => setDimension(3)}
+          selected={dimension === 3}
+        >
+          3х3
+        </Button>
+        <Button
+          theme={ThemeButton.GREY}
+          onClick={() => setDimension(5)}
+          selected={dimension === 5}
+        >
+          5х5
+        </Button>
+      </div>
+
       <p>Выберите, кто будет делать первый ход</p>
       <div className={styles.buttons}>
         <Button
           theme={ThemeButton.GREY}
           onClick={() => setFirstMove("x")}
-          selected={options.firstMove === "x"}
+          selected={firstMove === "x"}
         >
           X
         </Button>
         <Button
           theme={ThemeButton.GREY}
           onClick={() => setFirstMove("o")}
-          selected={options.firstMove === "o"}
+          selected={firstMove === "o"}
         >
           0
         </Button>
@@ -61,4 +81,4 @@ const MarkSelect = ({
   );
 };
 
-export default MarkSelect;
+export default OptionsSelect;

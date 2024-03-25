@@ -6,6 +6,7 @@ export enum ThemeButton {
   PRIMARY = "primary",
   SECONDARY = "secondary",
   GREY = "grey",
+  ORANGE = "orange",
   CELL = "cell",
 }
 
