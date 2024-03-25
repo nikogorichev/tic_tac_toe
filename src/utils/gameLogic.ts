@@ -20,14 +20,14 @@ export const minimax = (
     if (winner !== null) {
       return [multiplierMark[winner], 0];
     } else {
-      for (const square of board.getEmptySquares()) {
+      for (const cell of board.getEmptySquares()) {
         const copy: BoardState = board.clone();
-        copy.makeMove(square, player);
+        copy.makeMove(cell, player);
         thisScore = multiplier * minimax(copy, switchPlayer(player))[0];
 
         if (thisScore >= maxScore) {
           maxScore = thisScore;
-          bestMove = square;
+          bestMove = cell;
         }
       }
       return [multiplier * maxScore, bestMove];
