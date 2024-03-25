@@ -1,12 +1,15 @@
 import Button, { ThemeButton } from "shared/Button/Button";
 import styles from "./Board.module.scss";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Cell from "shared/Cell/Cell";
 import { Mark } from "utils/types/Mark";
 import { Winner } from "utils/types/Winner";
 import GameContext from "providers/GameProvider/GameContext";
-import { calculateWinner, nextComputerMove } from "utils/gameLogic";
+import { minimax } from "utils/gameLogic";
 import Counter from "components/Counter/Counter";
+import { getRandomIndex } from "utils/helpers/getRandomIndex";
+import BoardState from "utils/BoardState";
+import { switchPlayer } from "utils/helpers/switchPlayer";
 
 const winnerDict = {
   x: "Победили X",
@@ -14,21 +17,14 @@ const winnerDict = {
   draw: "Ничья",
 };
 
+const board = new BoardState();
+
 const Board = () => {
   const { options, counter, level, setOptions, setCounter } =
     useContext(GameContext);
   const [cells, setCells] = useState<Mark[]>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Mark>(options.firstMove);
   const [winner, setWinner] = useState<Winner>(null);
-
-  console.log(options)
-
-  const setCellValue = (index: number) => {
-    setCells((prev) =>
-      prev.map((cell, i) => (index === i ? currentPlayer : cell))
-    );
-    setCurrentPlayer((prev) => (prev === "x" ? "o" : "x"));
-  };
 
   const reset = () => {
     setCells(Array(9).fill(null));
@@ -41,7 +37,7 @@ const Board = () => {
   };
 
   useEffect(() => {
-    const winnerPlayer = calculateWinner(cells);
+    const winnerPlayer = board.getWinner(cells);
     if (winnerPlayer) {
       setWinner(winnerPlayer);
       setCounter((prev) => ({
@@ -54,35 +50,68 @@ const Board = () => {
       setWinner("draw");
       setCounter((prev) => ({ ...prev, draw: prev.draw + 1 }));
     }
-  }, [cells]);
+  }, [cells, currentPlayer]);
 
-  // const move = useCallback(
-  //   (index: number, player: Mark) => {
-  //     if (player !== null) {
-  //       setGrid((grid) => {
-  //         const gridCopy = grid.concat();
-  //         gridCopy[index] = player;
-  //         return gridCopy;
-  //       });
-  //     }
-  //   },
-  //   []
-  // );
+  const move = (index: number, player: Mark) => {
+    if (player !== null) {
+      setCells((prev) => prev.map((cell, i) => (index === i ? player : cell)));
+    }
+  };
 
-  const isComputerMove =
-    currentPlayer && options[currentPlayer] === "cpu" && !winner;
+  const cpuMove = () => {
+    const boardCopy = new BoardState(cells.concat());
+    const emptyIndices = board.getEmptySquares(cells);
+
+    let index: number | null;
+    switch (level) {
+      case "easy":
+        do {
+          index = getRandomIndex(0, 8);
+        } while (!emptyIndices.includes(index));
+        break;
+      case "medium": {
+        const smartMove = !boardCopy.isEmpty(cells) && Math.random() < 0.5;
+        if (smartMove) {
+          index = minimax(boardCopy, currentPlayer)?.[1];
+        } else {
+          do {
+            index = getRandomIndex(0, 8);
+          } while (!emptyIndices.includes(index));
+        }
+        break;
+      }
+      case "hard":
+      default:
+        index = boardCopy.isEmpty(cells)
+          ? getRandomIndex(0, 8)
+          : minimax(boardCopy, currentPlayer)?.[1];
+    }
+
+    if (index !== null && !cells[index]) {
+      if (currentPlayer !== null) {
+        move(index, currentPlayer);
+      }
+      setCurrentPlayer((prev) => switchPlayer(prev));
+    }
+  };
+
+  const humanMove = (index: number) => {
+    if (!cells[index] && currentPlayer && options[currentPlayer] === "player") {
+      move(index, currentPlayer);
+      setCurrentPlayer((prev) => switchPlayer(prev));
+    }
+  };
 
   useEffect(() => {
-    if (isComputerMove) {
-      if (cells.every((cell) => cell)) {
-        const firstStepIndex = Math.floor(Math.random() * 9);
-        setCellValue(firstStepIndex);
-      }
-      setTimeout(() => {
-        nextComputerMove(currentPlayer, cells, setCellValue, level);
+    let timeout: NodeJS.Timeout;
+
+    if (currentPlayer !== null && options[currentPlayer] === "cpu" && !winner) {
+      timeout = setTimeout(() => {
+        cpuMove();
       }, 500);
     }
-  }, [currentPlayer, winner]);
+    return () => timeout && clearTimeout(timeout);
+  }, [currentPlayer, options]);
 
   return (
     <>
@@ -97,7 +126,7 @@ const Board = () => {
             <Cell
               winner={winner}
               key={i}
-              setCellValue={() => setCellValue(i)}
+              setCellValue={() => humanMove(i)}
               value={cell}
             />
           );
