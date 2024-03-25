@@ -1,10 +1,10 @@
-import { LevelType } from "utils/types/Level";
+import { Level } from "providers/GameProvider/GameContext";
 import styles from "./LevelSelect.module.scss";
 import Button from "shared/Button/Button";
 
 type LevelSelectProps = {
-  selectedLevel: LevelType;
-  handleSetLevel: (value: LevelType) => void;
+  selectedLevel: Level;
+  handleSetLevel: (value: Level) => void;
 };
 
 const LevelSelect = ({ selectedLevel, handleSetLevel }: LevelSelectProps) => {
@@ -13,20 +13,20 @@ const LevelSelect = ({ selectedLevel, handleSetLevel }: LevelSelectProps) => {
       Выберите уровень сложности
       <div className={styles.btnsContainer}>
         <Button
-          onClick={() => handleSetLevel("easy")}
-          selected={selectedLevel === "easy"}
+          onClick={() => handleSetLevel(Level.EASY)}
+          selected={selectedLevel === Level.EASY}
         >
           Легкий
         </Button>
         <Button
-          onClick={() => handleSetLevel("medium")}
-          selected={selectedLevel === "medium"}
+          onClick={() => handleSetLevel(Level.MEDIUM)}
+          selected={selectedLevel === Level.MEDIUM}
         >
           Средний
         </Button>
         <Button
-          onClick={() => handleSetLevel("hard")}
-          selected={selectedLevel === "hard"}
+          onClick={() => handleSetLevel(Level.HARD)}
+          selected={selectedLevel === Level.HARD}
         >
           Тяжелый
         </Button>

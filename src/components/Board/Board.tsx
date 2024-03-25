@@ -1,10 +1,10 @@
 import Button, { ThemeButton } from "shared/Button/Button";
 import styles from "./Board.module.scss";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Cell from "shared/Cell/Cell";
 import { Mark } from "utils/types/Mark";
 import { Winner } from "utils/types/Winner";
-import GameContext from "providers/GameProvider/GameContext";
+import GameContext, { Level } from "providers/GameProvider/GameContext";
 import { minimax } from "utils/gameLogic";
 import Counter from "components/Counter/Counter";
 import { getRandomIndex } from "utils/helpers/getRandomIndex";
@@ -17,17 +17,17 @@ const winnerDict = {
   draw: "Ничья",
 };
 
-const board = new BoardState();
-
 const Board = () => {
-  const { options, counter, level, setOptions, setCounter } =
+  const { options, counter, level, setOptions, setCounter, dimension } =
     useContext(GameContext);
-  const [cells, setCells] = useState<Mark[]>(Array(9).fill(null));
+  const [cells, setCells] = useState<Mark[]>(Array(dimension ** 2).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Mark>(options.firstMove);
   const [winner, setWinner] = useState<Winner>(null);
 
+  const board = useMemo(() => new BoardState(dimension), []);
+
   const reset = () => {
-    setCells(Array(9).fill(null));
+    setCells(Array(dimension ** 2).fill(null));
     setWinner(null);
     setCurrentPlayer(options.firstMove);
   };
@@ -59,17 +59,17 @@ const Board = () => {
   };
 
   const cpuMove = () => {
-    const boardCopy = new BoardState(cells.concat());
+    const boardCopy = new BoardState(dimension, cells.slice());
     const emptyIndices = board.getEmptySquares(cells);
 
     let index: number | null;
     switch (level) {
-      case "easy":
+      case Level.EASY:
         do {
           index = getRandomIndex(0, 8);
         } while (!emptyIndices.includes(index));
         break;
-      case "medium": {
+      case Level.MEDIUM: {
         const smartMove = !boardCopy.isEmpty(cells) && Math.random() < 0.5;
         if (smartMove) {
           index = minimax(boardCopy, currentPlayer)?.[1];
@@ -80,7 +80,7 @@ const Board = () => {
         }
         break;
       }
-      case "hard":
+      case Level.HARD:
       default:
         index = boardCopy.isEmpty(cells)
           ? getRandomIndex(0, 8)
@@ -120,7 +120,7 @@ const Board = () => {
         {!winner && `Ход ${currentPlayer && currentPlayer.toUpperCase()}`}
       </div>
 
-      <div className={styles.grid}>
+      <div className={`${styles.grid} ${styles[`grid_${dimension}`]}`}>
         {cells.map((cell, i) => {
           return (
             <Cell

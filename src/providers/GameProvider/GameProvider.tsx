@@ -1,8 +1,7 @@
 import { useState } from "react";
-import GameContext, { Options } from "./GameContext";
+import GameContext, { Level, Options } from "./GameContext";
 import { useLocalStorage } from "utils/hooks/useLocalStorage";
 import { CounterType } from "utils/types/Counter";
-import { LevelType } from "utils/types/Level";
 
 type CardsProviderProps = {
   children: JSX.Element;
@@ -21,7 +20,8 @@ const GameProvider = ({ children }: CardsProviderProps) => {
     draw: 0,
   });
 
-  const [level, setLevel] = useState<LevelType>("medium");
+  const [level, setLevel] = useState<Level>(Level.MEDIUM);
+  const [dimension, setDimension] = useState(3);
 
   return (
     <GameContext.Provider
@@ -32,6 +32,8 @@ const GameProvider = ({ children }: CardsProviderProps) => {
         setCounter,
         level,
         setLevel,
+        dimension,
+        setDimension,
       }}
     >
       {children}

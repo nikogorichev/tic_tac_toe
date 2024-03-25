@@ -1,15 +1,15 @@
 import styles from "./Menu.module.scss";
 import { useContext, useState } from "react";
-import GameContext from "providers/GameProvider/GameContext";
+import GameContext, { Level } from "providers/GameProvider/GameContext";
 import { Game } from "utils/types/Game";
 import { Mark } from "utils/types/Mark";
-import MarkSelect from "./MarkSelect/MarkSelect";
+import OptionsSelect from "./OptionsSelect/OptionsSelect";
 import GameSelect from "./GameSelect/GameSelect";
 import LevelSelect from "./LevelSelect/LevelSelect";
-import { LevelType } from "utils/types/Level";
 
 const Menu = () => {
-  const { options, level, setOptions, setLevel } = useContext(GameContext);
+  const { options, level, dimension, setOptions, setLevel, setDimension } =
+    useContext(GameContext);
   const [playerMark, setPlayerMark] = useState<Mark>("x");
 
   const handleSetFirstMove = (firstMove: Mark) => {
@@ -35,7 +35,7 @@ const Menu = () => {
     setOptions({ ...resultMarks, isGame: true });
   };
 
-  const handleSetLevel = (level: LevelType) => {
+  const handleSetLevel = (level: Level) => {
     setLevel(level);
   };
 
@@ -45,12 +45,14 @@ const Menu = () => {
 
   return (
     <div className={styles.wrapper}>
-      <MarkSelect
+      <OptionsSelect
         playerMark={playerMark}
         firstMove={options.firstMove}
+        dimension={dimension}
         setPlayerMark={setPlayerMark}
         handleRandom={handleRandom}
         setFirstMove={handleSetFirstMove}
+        setDimension={setDimension}
       />
 
       {options.x === "cpu" || options.o === "cpu" ? (
