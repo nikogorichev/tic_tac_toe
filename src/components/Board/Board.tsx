@@ -66,7 +66,7 @@ const Board = () => {
     switch (level) {
       case Level.EASY:
         do {
-          index = getRandomIndex(0, 8);
+          index = getRandomIndex(0, cells.length - 1);
         } while (!emptyIndices.includes(index));
         break;
       case Level.MEDIUM: {
@@ -75,7 +75,7 @@ const Board = () => {
           index = minimax(boardCopy, currentPlayer)?.[1];
         } else {
           do {
-            index = getRandomIndex(0, 8);
+            index = getRandomIndex(0, cells.length - 1);
           } while (!emptyIndices.includes(index));
         }
         break;
@@ -83,7 +83,7 @@ const Board = () => {
       case Level.HARD:
       default:
         index = boardCopy.isEmpty(cells)
-          ? getRandomIndex(0, 8)
+          ? getRandomIndex(0, cells.length - 1)
           : minimax(boardCopy, currentPlayer)?.[1];
     }
 
