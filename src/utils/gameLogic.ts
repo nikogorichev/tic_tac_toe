@@ -5,6 +5,7 @@ import { Mark } from "./types/Mark";
 const multiplierMark = {
   x: 1,
   o: -1,
+  draw: 0
 };
 
 export const minimax = (

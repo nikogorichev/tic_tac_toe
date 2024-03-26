@@ -54,7 +54,7 @@ export default class BoardState {
     return this.getEmptySquares(cells).length === this.dimension ** 2;
   };
 
-  getWinner = (cells = this.cells): Mark => {
+  getWinner = (cells = this.cells): Winner => {
     if (this.dimension === 3 || this.dimension === 5) {
       const winningCombos = winningLines[this.dimension];
       let result: Winner = null;
