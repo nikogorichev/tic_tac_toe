@@ -95,7 +95,7 @@ const Board = () => {
     }
   };
 
-  const humanMove = (index: number) => {
+  const playerMove = (index: number) => {
     if (!cells[index] && currentPlayer && options[currentPlayer] === "player") {
       move(index, currentPlayer);
       setCurrentPlayer((prev) => switchPlayer(prev));
@@ -105,7 +105,7 @@ const Board = () => {
   useEffect(() => {
     let timeout: NodeJS.Timeout;
 
-    if (currentPlayer !== null && options[currentPlayer] === "cpu" && !winner) {
+    if (currentPlayer && options[currentPlayer] === "cpu" && !winner) {
       timeout = setTimeout(() => {
         cpuMove();
       }, 500);
@@ -126,7 +126,7 @@ const Board = () => {
             <Cell
               winner={winner}
               key={i}
-              setCellValue={() => humanMove(i)}
+              setCellValue={() => playerMove(i)}
               value={cell}
             />
           );
