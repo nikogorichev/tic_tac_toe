@@ -5,7 +5,7 @@ import { useOptionsFilled } from "utils/hooks/useOptionsFilled";
 const Main = () => {
   const isOptionsFilled = useOptionsFilled();
 
-  return !isOptionsFilled ? <Menu /> : <Board />;
+  return isOptionsFilled ? <Board /> : <Menu />;
 };
 
 export default Main;
