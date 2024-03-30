@@ -95,7 +95,7 @@ const Board = () => {
     }
   };
 
-  const playerMove = (index: number) => {
+  const playerMove = (index: number) => () => {
     if (!cells[index] && currentPlayer && options[currentPlayer] === "player") {
       move(index, currentPlayer);
       setCurrentPlayer((prev) => switchPlayer(prev));
@@ -126,7 +126,7 @@ const Board = () => {
             <Cell
               winner={winner}
               key={i}
-              setCellValue={() => playerMove(i)}
+              setCellValue={playerMove(i)}
               value={cell}
             />
           );
